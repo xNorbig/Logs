@@ -9,7 +9,7 @@ settings:
   #works if logToOps is true
   chat: '&8[{event}] &f{entity}, &7{info} [{loc}]'
 
-#events that will be logged (events list: http://pastebin.com/raw/esYXHFbf)
+#events that will be logged (events list: https://github.com/norbi002/Logs/blob/master/events%20list)
 events:
 - bedEnter
 - bedLeave
