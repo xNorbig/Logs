@@ -1,0 +1,170 @@
+function event(e: text, n: text, p: text, i: text, l: text) :: boolean:
+	if file "plugins/Skript/scripts/config-logs.yml" doesn't exists:
+		download from "http://pastebin.com/raw/XX3EeVAc" to "plugins/Skript/scripts/config-logs.yml"
+	set {_events::*} to yaml list "events" from file "config-logs.yml"
+	loop {_events::*}:
+		loop-value-1 is {_e}
+		set {_file-directory} to yaml value "settings.fileDirectory" from file "config-logs.yml"
+		set {_format-file} to yaml value "settings.file" from file "config-logs.yml"
+		set {_format-chat} to yaml value "settings.chat" from file "config-logs.yml"
+		if {_p} is "":
+			set {_p} to "no entity"
+		if {_i} is "":
+			set {_i} to "no info"
+		if {_l} is "":
+			set {_l} to "no location"
+		add "file" and "chat" to {_file::*}
+		loop {_file::*}:
+			replace all "{date}" with "%now%" in {_format-%loop-value-2%}
+			replace all "{event}" with "%{_n}%" in {_format-%loop-value-2%}
+			replace all "{entity}" with "%{_p}%" in {_format-%loop-value-2%}
+			replace all "{info}" with "%{_i}%" in {_format-%loop-value-2%}
+			replace all "{loc}" with "%{_l}%" in {_format-%loop-value-2%}
+		wf "%{_format-file}%" to "%{_file-directory}%"
+		if yaml value "settings.logToOps" from file "config-logs.yml" is true:
+			send "%colored {_format-chat}%" to all ops
+on bed enter:
+	event("bedEnter", "bed enter", "%player%", "", "%location%")
+on bed leave:
+	event("bedLeave", "bed leave", "%player%", "", "%location%")
+on block damage:
+	event("blockDamage", "block dmg", "%player%", "gm: %player's gamemode%", "%location%")
+on break:
+	event("break", "break", "%player%", "block: %block%", "%location%")
+on bucket empty:
+	event("bucketEmpty", "bucket empty", "%player%", "", "%location%")
+on bucket fill:
+	event("bucketFill", "bucket fill", "%player%", "", "%location%")
+on chat:
+	event("chat", "chat msg", "%player%", "msg: %message%", "%location%")
+on chunk generate:
+	event("chunkGenerate", "chunk gen", "", "", "%event-chunk%")
+on chunk load:
+	event("chunkLoad", "chunk load", "", "", "%event-chunk%")
+on chunk unload:
+	event("chunkUnload", "chunk unload", "", "", "%event-chunk%")
+on click:
+	event("click", "click", "%player%", "", "%player's location%")
+on combust:
+	event("combust", "combust", "%entity%", "", "%location%")
+on command:
+	event("command", "command", "%executor%", "cmd: /%complete command%", "%location%")
+on connect:
+	event("connect", "connect", "%player%", "ip: %ip%", "no location")
+on consume:
+	event("consume", "consume", "%player%", "item: %item%", "%location%")
+on craft:
+	event("craft", "craft", "%player%", "item: %item%", "%location%")
+on creeper power:
+	event("creeperPower", "creeper power", "lightning", "", "%location%")
+on damage:
+	event("damage", "dmg", "%victim%", "attacker: %attacker%, dmgcause: %damage cause%, dmg: %damage%", "%victim's location%")
+on death:
+	event("death", "detah", "%victim%", "attacker: %attacker%, dmgcause: %damage cause%", "%victim's location%")
+on dispense:
+	event("dispense", "dispense", "%block%", "item: %item%", "%location%")
+on drop:
+	event("drop", "drop", "%player%", "item: %item%", "%location%")
+on enderman place:
+	event("endermanPlace", "e-man place", "enderman", "%block%", "%location%")
+on enderman pickup:
+	event("endermanPickup", "e-man pickup", "enderman", "%block%", "%location%")
+on explode:
+	loop exploded blocks:
+		add 1 to {_blocks}
+	event("explode", "explode", "%entity%", "%{_blocks}%", "%location%")
+on fade:
+	event("fade", "fade", "", "%block%", "%location%")
+on first join:
+	event("firstJoin", "first join", "%player%", "ip: %ip%", "%location%")
+on fishing:
+	event("fishing", "fishing", "ip: %player%", "", "%location%")
+on flow:
+	event("flow", "flow", "", "block: %block%", "%location%")
+on form:
+	event("form", "form", "", "block: %block%", "%location%")
+on fuel burn:
+	event("fuelBurn", "fuel burn", "", "%item%", "%location%")
+on gamemode change:
+	event("gamemodeChange", "gm change", "%player%", "new gm: %player's gamemode%", "%location%")
+on grow:
+	event("grow", "grow", "", "", "%location%")
+on heal:
+	event("heal", "heal", "%entity%", "new health: %entity's health%", "%location%")
+on hunger meter change:
+	event("hungerChange", "hunger", "%player%", "new food lvl: %player's food level%", "%location%")
+on ignition:
+	event("ignition", "ignition", "", "%block%", "%location%")
+on item spawn:
+	event("itemSpawn", "item spawn", "", "", "%location%")
+on join:
+	event("join", "join", "%player%", "ip: %ip%", "%location%")
+on kick:
+	event("kick", "kick", "%player%", "ip: %ip%", "%location%")
+on leaves decay:
+	event("leavesDecay", "leaves decay", "", "", "%location%")
+on level change:
+	event("levelChange", "level change", "%player%", "new lvl: %player's level%", "%location%")
+on lightning strike:
+	event("lightningStrike", "lightning", "", "", "")
+on pickup:
+	event("pickup", "pickup", "%player%", "item: %item%", "%location%")
+on pig zap:
+	event("pigZap", "pig zap", "", "", "%location%")
+on piston extend:
+	event("pistonExtend", "piston extend", "", "", "%location%")
+on piston retract:
+	event("pistonRetract", "piston retract", "", "", "%location%")
+on place:
+	event("place", "place", "%player%", "block: %block%", "%location%")
+on portal:
+	event("portal", "portal", "%player%", "", "%location%")
+on portal create:
+	event("portalCreate", "portal create", "", "", "")
+on pressure plate:
+	event("pressurePlate", "plate step", "%player%", "block: %event-block%", "%location%")
+on projectile hit:
+	event("projectileHit", "projectile hit", "%shooter%", "projectile: %projectile%", "%location%")
+on quit:
+	event("quit", "quit", "%player%", "ip: %ip%", "%location%")
+on respawn:
+	wait 1 tick
+	event("respawn", "respawn", "%player%", "", "%location%")
+on sheep eat:
+	event("sheepEat", "sheep eat", "sheep", "", "%location%")
+on shoot:
+	event("shot", "projectile shot", "%shooter%", "projectile: %projectile%", "%location%")
+on sign change:
+	event("signCreate", "sign create", "%player%", "l1: %line 1%, l2: %line 2%, l3: %line 3%, l4: %line 4%", "%location%")
+on smelt:
+	event("smelt", "smelt", "", "", "%location%")
+on sneak toggle:
+	event("sneakToggle", "sneak toggle", "%player%", "", "%location%")
+on spawn:
+	event("spawn", "spawn", "", "entity: %entity%", "%location%")
+on spawn change:
+	event("spawnChange", "spawn change", "", "", "")
+on spread:
+	event("spread", "spread", "", "", "%location%")
+on sprint toggle:
+	event("sprintToggle", "sprint toggle", "%player%", "", "%location%")
+on tame:
+	event("tame", "tame", "%player%", "entity: %entity%", "%location%")
+on teleport:
+	event("teleport", "teleport", "%player%", "", "%location%")
+on tool change:
+	event("toolChange", "tool change", "%player%", "new tool: %player's tool%", "%location%")
+on vehicle create:
+	event("vehicleCreate", "veh create", "%player%", "", "%location%")
+on vehicle damage:
+	event("vehicleDamage", "veh dmg", "%player%", "", "%location%")
+on vehicle destroy:
+	event("vehicleDestroy", "veh dstr", "%player%", "", "%location%")
+on vehicle enter:
+	event("vehicleEnter", "veh enter", "%entity%", "", "%location%")
+on vehicle exit:
+	event("vehicleExit", "veh exit", "%player%", "", "%location%")
+on weather change:
+	event("weatherChange", "weather change", "", "%weather%", "")
+on world save:
+	event("worldSave", "worldSave", "server", "", "")
