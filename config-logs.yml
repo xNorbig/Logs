@@ -1,0 +1,84 @@
+settings:
+  #set file directory below
+  fileDirectory: 'plugins/Skript/scripts/logs.txt'
+  #log format in file
+  file: '{date} [{event}] {entity}, {info} [{loc}]'
+  
+  #send message to ops?
+  logToOps: true
+  #works if logToOps is true
+  chat: '&8[{event}] &f{entity}, &7{info} [{loc}]'
+
+#events that will be logged (events list: http://pastebin.com/raw/esYXHFbf)
+events:
+- bedEnter
+- bedLeave
+- blockDamage
+- break
+- bucketEmpty
+- bucketFill
+- chat
+- chunkGenerate
+- chunkLoad
+- chunkUnload
+- click
+- combust
+- command
+- connect
+- consume
+- craft
+- creeperPower
+- damage
+- death
+- dispense
+- drop
+- endermanPlace
+- endermanPickup
+- explode
+- fade
+- firstJoin
+- fishing
+- flow
+- form
+- furnaceBurn
+- gamemodeChange
+- grow
+- heal
+- hungerChange
+- ignition
+- itemSpawn
+- join
+- kick
+- leavesDecay
+- levelChange
+- lightningStrike
+- pickup
+- pigZap
+- pistonExtend
+- pistonRetract
+- place
+- portal
+- portalCreate
+- pressurePlate
+- projectileHit
+- quit
+- respawn
+- sheepEat
+- shot
+- signCreate
+- smelt
+- sneakToggle
+- spawn
+- spawnChange
+- spread
+- sprintToggle
+- tame
+- teleport
+- toolChange
+- vehicleChange
+- vehicleCreate
+- vehicleDamage
+- vehicleDestroy
+- vehicleEnter
+- vehicleExit
+- worldSave
