@@ -1,6 +1,6 @@
 function event(e: text, n: text, p: text, i: text, l: text):
 	if file "plugins/Skript/scripts/config-logs.yml" doesn't exists:
-		download from "https://raw.githubusercontent.com/norbi002/Logs/master/config-logs.yml" to "plugins/Skript/scripts/config-logs.yml"
+		download from "https://raw.githubusercontent.com/xNorbig/Logs/master/config-logs.yml" to "plugins/Skript/scripts/config-logs.yml"
 	set {_events::*} to yaml list "events" from file "config-logs.yml"
 	loop {_events::*}:
 		loop-value-1 is {_e}
